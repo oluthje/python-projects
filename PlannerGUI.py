@@ -52,17 +52,6 @@ class Planner:
 			if split_array[2] == "completed=false" and split_array[3] == "deleted=false":
 				self.assignment_label = Assignments(self.master, split_array[0], split_array[1], index)
 
-	def load_item_list(self):
-		with open("shoplist.txt","r+") as file:
-			content = file.readlines()
-			# you may also want to remove whitespace characters like `\n` at the end of each line
-			content = [x.strip() for x in content]
-
-	def save_item_list(self):
-		with open("shoplist.txt","a+") as file:
-			for x in content:
-				file.write(x + "\n")
-
 	def create_left_frame(self):
 		self.left_frame = Frame(self.master, relief=GROOVE, bd=1)
 		self.left_frame.pack(side=LEFT, anchor=NW, padx=25, pady=25)
@@ -258,19 +247,14 @@ class CompletedAssignments:
 		self.separator = Frame(PlannerApp.center_scroll_frame, width=200, height=2, bd=1, relief=SUNKEN)
 		self.separator.pack(fill=X, padx=5, pady=5)
 
+		#adds new assignment obj to list_of_assignment_objs
+		global assignment_objs_list
+		assignment_objs_list.append(self)
+
 	def delete_assignment(self):
 		self.label_1.pack_forget()
 		self.label_2.pack_forget()
-		self.delete_assignment_button.pack_forget()
-		self.complete_assignment_button.pack_forget()
 		self.separator.pack_forget()
-
-		# 'delete' assignment from memory
-		split_array = re.split(r"\,", assignments_list[self.index_num]) #removes ',' and splits
-		split_array[3] = "deleted=true"
-
-		assignments_list[self.index_num] = split_array[0] + "," + split_array[1] + "," + split_array[2] + "," + split_array[3]
-
 		PlannerApp.commit_assignments_to_memory()
 
 def fast_fix():
