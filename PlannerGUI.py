@@ -164,7 +164,7 @@ class TitleLabel:
 		self.frame = frame
 		self.title_label = Label(self.frame, text=label_name)
 		self.title_label.pack(anchor=W)
-		self.label_font = ('times', 20, 'bold')
+		self.label_font = ('Helvetica', 20, 'bold')
 		self.title_label.config(font=self.label_font)
 
 class Assignments:
@@ -181,14 +181,19 @@ class Assignments:
 
 		self.index_num = index_num
 
-		self.delete_assignment_button = Button(PlannerApp.scroll_frame, text="Delete", command=self.delete_assignment)
-		self.delete_assignment_button.pack()
+		# creates frame for two buttons
+		self.button_frame = Frame(PlannerApp.scroll_frame)
+		self.button_frame.pack()
 
-		self.complete_assignment_button = Button(PlannerApp.scroll_frame, text="Complete", command=self.complete_assignment)
-		self.complete_assignment_button.pack()
+		self.delete_assignment_button = Button(self.button_frame, text="Delete", command=self.delete_assignment)
+		self.delete_assignment_button.pack(side=LEFT)
+
+		self.complete_assignment_button = Button(self.button_frame, text="Complete", command=self.complete_assignment)
+		self.complete_assignment_button.pack(side=RIGHT)
+
 
 		self.separator = Frame(PlannerApp.scroll_frame, width=200, height=2, bd=1, relief=SUNKEN)
-		self.separator.pack(anchor=W, fill=X, padx=5, pady=5)
+		self.separator.pack(side=TOP, anchor=N, fill=X, padx=5, pady=5)
 
 		#adds new assignment obj to list_of_assignment_objs
 		global assignment_objs_list
@@ -201,6 +206,7 @@ class Assignments:
 		self.label_2.pack_forget()
 		self.delete_assignment_button.pack_forget()
 		self.complete_assignment_button.pack_forget()
+		self.button_frame.pack_forget()
 		self.separator.pack_forget()
 
 		# 'delete' assignment from memory
@@ -218,6 +224,7 @@ class Assignments:
 		self.label_2.pack_forget()
 		self.delete_assignment_button.pack_forget()
 		self.complete_assignment_button.pack_forget()
+		self.button_frame.pack_forget()
 		self.separator.pack_forget()
 
 		self.completed_assignment_label = CompletedAssignments(self.master, self.assignment_class, self.assignment_description, self.index_num)
