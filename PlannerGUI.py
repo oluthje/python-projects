@@ -21,8 +21,8 @@ class Planner:
 
 	def commit_assignments_to_memory(self):
 		# below is a fix for problem with pyinstaller
-		#filename = "assignments.txt"
-		filename = "/Users/oscarluthje/Desktop/PythonPrograms/Planner/assignments.txt"
+		filename = "assignments.txt"
+		#filename = "/Users/oscarluthje/Desktop/PythonPrograms/Planner/assignments.txt"
 		#if '_MEIPASS2' in os.environ:
    		#	filename = os.path.join(os.environ['_MEIPASS2'], filename)
 
@@ -33,8 +33,8 @@ class Planner:
 	def load_assignments_from_memory(self):
 		global assignments_list
 		# below is a fix for problem with pyinstaller
-		#filename = "assignments.txt"
-		filename = "/Users/oscarluthje/Desktop/PythonPrograms/Planner/assignments.txt"
+		filename = "assignments.txt"
+		#filename = "/Users/oscarluthje/Desktop/PythonPrograms/Planner/assignments.txt"
 		#if '_MEIPASS2' in os.environ:
    		#	filename = os.path.join(os.environ['_MEIPASS2'], filename)
 
