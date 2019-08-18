@@ -185,12 +185,13 @@ class Assignments:
 		self.button_frame = Frame(PlannerApp.scroll_frame)
 		self.button_frame.pack()
 
-		self.delete_assignment_button = Button(self.button_frame, text="Delete", command=self.delete_assignment)
+		self.x_mark_photo = PhotoImage(file = r"redxmark.gif")
+		self.delete_assignment_button = Button(self.button_frame, command=self.delete_assignment, image=self.x_mark_photo, height=20, width=20)
 		self.delete_assignment_button.pack(side=LEFT)
 
-		self.complete_assignment_button = Button(self.button_frame, text="Complete", command=self.complete_assignment)
+		self.check_mark_photo = PhotoImage(file = r"greencheckmark.gif")
+		self.complete_assignment_button = Button(self.button_frame, command=self.complete_assignment, image=self.check_mark_photo, height=20, width=20)
 		self.complete_assignment_button.pack(side=RIGHT)
-
 
 		self.separator = Frame(PlannerApp.scroll_frame, width=200, height=2, bd=1, relief=SUNKEN)
 		self.separator.pack(side=TOP, anchor=N, fill=X, padx=5, pady=5)

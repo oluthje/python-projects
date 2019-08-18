@@ -1,33 +1,17 @@
-from Tkinter import *
-
-def data():
-    for i in range(8):
-    #   Label(frame,text=i).grid(row=i,column=0)
-    #   Label(frame,text="my text"+str(i)).grid(row=i,column=1)
-    #   Label(frame,text="..........").grid(row=i,column=2)
-   		Label(frame, text="some text").grid(row=i, column=2)
-
-def myfunction(event):
-    canvas.configure(scrollregion=canvas.bbox("all"))
-
-root=Tk()
-sizex = 800
-sizey = 600
-posx = 100
-posy = 100
-root.wm_geometry("%dx%d+%d+%d" % (sizex, sizey, posx, posy))
-
-myframe=Frame(root,relief=GROOVE,width=50,height=100,bd=1)
-myframe.place(x=10,y=10)
-
-canvas=Canvas(myframe)
-frame=Frame(canvas)
-myscrollbar=Scrollbar(myframe,orient="vertical",command=canvas.yview)
-canvas.configure(yscrollcommand=myscrollbar.set)
-
-myscrollbar.pack(side="right",fill="y")
-canvas.pack(side="left")
-canvas.create_window((0,0),window=frame,anchor='nw')
-frame.bind("<Configure>",myfunction)
-data()
-root.mainloop()
+# importing only those functions 
+# which are needed 
+from Tkinter import * 
+#from tkinter.ttk import *
+  
+# creating tkinter window 
+root = Tk() 
+  
+# Adding widgets to the root window 
+Label(root, text = 'GeeksforGeeks', font =( 
+  'Verdana', 15)).pack(side = TOP, pady = 10) 
+  
+# Creating a photoimage object to use image 
+photo = PhotoImage(file = r"greencheckmark.gif")
+Button(root, text = 'Click Me !', image = photo, height = 20, width = 20).pack(side = TOP)
+  
+mainloop() 
