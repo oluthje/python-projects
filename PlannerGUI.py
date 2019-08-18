@@ -64,26 +64,52 @@ class Planner:
 				file.write(x + "\n")
 
 	def create_left_frame(self):
-		# loads all stored assignments
-
-		self.left_frame = Frame(self.master)
-		self.left_frame.pack(side=LEFT, anchor=N, padx=50, pady=30)
+		self.left_frame = Frame(self.master, relief=GROOVE, bd=1)
+		self.left_frame.pack(side=LEFT, anchor=NW, padx=25, pady=25)
 		self.left_frame['borderwidth'] = 2
 
 		self.assignment_label = TitleLabel(self.master, self.left_frame, "Assignments:")
 		
-		self.separator = Frame(self.left_frame, width=200, height=2, bd=1, relief=SUNKEN)
+		self.separator = Frame(self.left_frame, width=200, height=2, bd=1, relief=GROOVE)
 		self.separator.pack(fill=X, padx=5, pady=5)
 
+		# scroll enabling
+		self.left_canvas=Canvas(self.left_frame, width=200, height=500)
+		self.scroll_frame=Frame(self.left_canvas)
+		self.left_scrollbar=Scrollbar(self.left_frame,orient="vertical",command=self.left_canvas.yview)
+		self.left_canvas.configure(yscrollcommand=self.left_scrollbar.set)
+
+		def configure_scroll(event):
+			self.left_canvas.configure(scrollregion=self.left_canvas.bbox("all"))
+
+		self.left_scrollbar.pack(side="right",fill="y")
+		self.left_canvas.pack(side="left", fill="both", expand=True)
+		self.left_canvas.create_window((0,0),window=self.scroll_frame,anchor='nw')
+		self.scroll_frame.bind("<Configure>", configure_scroll)
+
 	def create_center_frame(self):
-		self.center_frame = Frame(self.master)
-		self.center_frame.pack(side=LEFT, anchor=N, padx=50, pady=30)
+		self.center_frame = Frame(self.master, relief=GROOVE, bd=1)
+		self.center_frame.pack(side=LEFT, anchor=N, padx=25, pady=25)
 		self.center_frame['borderwidth'] = 2
 
 		self.completed_title_label = TitleLabel(self.master, self.center_frame, "Completed:")
 
 		self.separator = Frame(self.center_frame, width=200, height=2, bd=1, relief=SUNKEN)
 		self.separator.pack(fill=X, padx=5, pady=5)
+
+		# scroll enabling
+		self.center_canvas=Canvas(self.center_frame, width=200, height=500)
+		self.center_scroll_frame=Frame(self.center_canvas)
+		self.center_scrollbar=Scrollbar(self.center_frame,orient="vertical",command=self.center_canvas.yview)
+		self.center_canvas.configure(yscrollcommand=self.center_scrollbar.set)
+
+		def configure_scroll(event):
+			self.center_canvas.configure(scrollregion=self.center_canvas.bbox("all"))
+
+		self.center_scrollbar.pack(side="right",fill="y")
+		self.center_canvas.pack(side="left")
+		self.center_canvas.create_window((0,0),window=self.center_scroll_frame,anchor='nw')
+		self.center_scroll_frame.bind("<Configure>", configure_scroll)
 
 	def create_right_frame(self):
 		self.right_frame = Frame(self.master)
@@ -158,21 +184,21 @@ class Assignments:
 		self.assignment_class = assignment_class
 		self.assignment_description = assignment_description
 
-		self.label_1 = Label(PlannerApp.left_frame, text=self.assignment_class, font='Helvetica 13 bold')
+		self.label_1 = Label(PlannerApp.scroll_frame, text=self.assignment_class, font='Helvetica 13 bold')
 		self.label_1.pack(anchor=W)
 
-		self.label_2 = Label(PlannerApp.left_frame, text="   " + self.assignment_description)
+		self.label_2 = Label(PlannerApp.scroll_frame, text="   " + self.assignment_description)
 		self.label_2.pack(anchor=W)
 
 		self.index_num = index_num
 
-		self.delete_assignment_button = Button(PlannerApp.left_frame, text="Delete", command=self.delete_assignment)
+		self.delete_assignment_button = Button(PlannerApp.scroll_frame, text="Delete", command=self.delete_assignment)
 		self.delete_assignment_button.pack()
 
-		self.complete_assignment_button = Button(PlannerApp.left_frame, text="Complete", command=self.complete_assignment)
+		self.complete_assignment_button = Button(PlannerApp.scroll_frame, text="Complete", command=self.complete_assignment)
 		self.complete_assignment_button.pack()
 
-		self.separator = Frame(PlannerApp.left_frame, width=200, height=2, bd=1, relief=SUNKEN)
+		self.separator = Frame(PlannerApp.scroll_frame, width=200, height=2, bd=1, relief=SUNKEN)
 		self.separator.pack(anchor=W, fill=X, padx=5, pady=5)
 
 		#adds new assignment obj to list_of_assignment_objs
@@ -221,15 +247,15 @@ class CompletedAssignments:
 		self.assignment_class = assignment_class
 		self.assignment_description = assignment_description
 
-		self.label_1 = Label(PlannerApp.center_frame, text=self.assignment_class, font='Helvetica 13 bold')
+		self.label_1 = Label(PlannerApp.center_scroll_frame, text=self.assignment_class, font='Helvetica 13 bold')
 		self.label_1.pack(anchor=W)
 
-		self.label_2 = Label(PlannerApp.center_frame, text="   " + self.assignment_description)
+		self.label_2 = Label(PlannerApp.center_scroll_frame, text="   " + self.assignment_description)
 		self.label_2.pack(anchor=W)
 
 		self.index_num = index_num
 
-		self.separator = Frame(PlannerApp.center_frame, width=200, height=2, bd=1, relief=SUNKEN)
+		self.separator = Frame(PlannerApp.center_scroll_frame, width=200, height=2, bd=1, relief=SUNKEN)
 		self.separator.pack(fill=X, padx=5, pady=5)
 
 	def delete_assignment(self):

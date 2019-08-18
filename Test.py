@@ -1,19 +1,20 @@
 from Tkinter import *
 
 def data():
-    for i in range(50):
-       Label(frame,text=i).grid(row=i,column=0)
-       Label(frame,text="my text"+str(i)).grid(row=i,column=1)
-       Label(frame,text="..........").grid(row=i,column=2)
+    for i in range(8):
+    #   Label(frame,text=i).grid(row=i,column=0)
+    #   Label(frame,text="my text"+str(i)).grid(row=i,column=1)
+    #   Label(frame,text="..........").grid(row=i,column=2)
+   		Label(frame, text="some text").grid(row=i, column=2)
 
 def myfunction(event):
-    canvas.configure(scrollregion=canvas.bbox("all"),width=200,height=200)
+    canvas.configure(scrollregion=canvas.bbox("all"))
 
 root=Tk()
 sizex = 800
 sizey = 600
-posx  = 100
-posy  = 100
+posx = 100
+posy = 100
 root.wm_geometry("%dx%d+%d+%d" % (sizex, sizey, posx, posy))
 
 myframe=Frame(root,relief=GROOVE,width=50,height=100,bd=1)
